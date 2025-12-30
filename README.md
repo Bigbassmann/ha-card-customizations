@@ -17,6 +17,11 @@ homeassistant:
       monitored_override: true
       override_category: "Device"
      
-<img width="531" height="372" alt="image" src="https://github.com/user-attachments/assets/8cdcd128-e02a-4b58-8842-feda47e4b1bb" />  <img width="251" height="177" alt="image" src="https://github.com/user-attachments/assets/ca55e6e3-af9e-465b-916d-f828e5be8f73" />
+<img width="531" height="372" alt="image" src="https://github.com/user-attachments/assets/8cdcd128-e02a-4b58-8842-feda47e4b1bb" /> 
+<img width="251" height="177" alt="image" src="https://github.com/user-attachments/assets/ca55e6e3-af9e-465b-916d-f828e5be8f73" />
+<img width="506" height="723" alt="image" src="https://github.com/user-attachments/assets/53379287-69d2-4097-85aa-befb4e90b2fc" />
+<img width="810" height="764" alt="image" src="https://github.com/user-attachments/assets/d606f060-bf00-4d86-91bd-55202a3a7181" />
+
+
 
 
