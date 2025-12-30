@@ -1,0 +1,104 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    name: Active
+    icon: ""
+    hash: "#active-overrides"
+    button_type: state
+    trigger_close: false
+    close_by_clicking_outside: true
+    scrolling_effect: false
+    close_on_click: true
+    button_action: {}
+    sub_button:
+      - entity: sensor.active_automation_overrides
+        name: Show Available
+        state_background: true
+        show_background: true
+        show_name: true
+        show_attribute: false
+        tap_action:
+          action: navigate
+          navigation_path: "#available-overrides"
+        show_state: false
+    show_header: true
+    entity: sensor.active_automation_overrides
+    show_attribute: true
+    attribute: category_counts
+    show_last_updated: false
+    show_state: true
+    show_icon: true
+    hide_backdrop: false
+    card_layout: large
+    force_icon: false
+    show_name: true
+  - square: false
+    type: grid
+    cards:
+      - type: custom:auto-entities
+        title: Active Overrides
+        show_empty: true
+        state_color: true
+        tap_action: default
+        options:
+          card_param: []
+          template: []
+          unique: []
+          else: []
+        card:
+          type: entities
+        filter:
+          include:
+            - options: {}
+              label: overrides_special
+              domain: lock
+              state: unlocked
+            - options: {}
+              domain: lock
+              label: overrides_special
+              state: unlocked
+              attributes:
+                monitored_override: true
+            - options: {}
+              label: overrides_special
+              domain: input_boolean
+              state: "on"
+              attributes:
+                monitored_override: false
+            - options: {}
+              domain: input_boolean
+              label: overrides_special
+              state: "on"
+              attributes:
+                monitored_override: true
+            - type: section
+            - options: {}
+              domain: input_boolean
+              state: "on"
+              attributes:
+                monitored_override: true
+                override_category: Global
+            - type: section
+            - options: {}
+              domain: input_boolean
+              state: "on"
+              attributes:
+                monitored_override: true
+                override_category: Area
+            - type: section
+            - options: {}
+              domain: input_boolean
+              state: "on"
+              attributes:
+                monitored_override: true
+                override_category: Device
+            - options: {}
+            - options: {}
+              entity_id: input_boolean.sleepnumber_disable_automations
+              state: "on"
+          exclude: []
+        sort: name
+    columns: 1
+grid_options:
+  columns: full
