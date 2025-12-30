@@ -9,7 +9,7 @@ Displays a formatted summary of all "automation override" switches when they are
 - custom:mushroom-template-card
 
 #### Modifiers
-- card-mod @thomasloven
+- card-mod [@thomasloven](https://github.com/thomasloven)
 
 #### Extra Steps
 Requires the addition of attributes to the input_boolean helpers via config. Then the entities can be filtered by the auto-entities card. The method is used again in an Area Card Plus card (posted separately). (Will post thanks and attributions in a bit - new to GitHub.)
