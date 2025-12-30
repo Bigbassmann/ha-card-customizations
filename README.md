@@ -4,6 +4,8 @@ Displays a formatted summary of all "automation override" switches when they are
 **Modifiers:** card-mod
 **Extra Steps:** Requires the addition of attributes to the input_boolean helpers via config. Then the entities can be filtered by the auto-entities card.  The method is used again in an Area Card Plus card (posted separately.   (Will post thanks and attributions in a bit - new to github.)
 
+<img width="531" height="372" alt="image" src="https://github.com/user-attachments/assets/8cdcd128-e02a-4b58-8842-feda47e4b1bb" />
+
 **Examples:**
 homeassistant:
   customize:
@@ -16,4 +18,5 @@ homeassistant:
     input_boolean.garage_door_automation_off:
       monitored_override: true
       override_category: "Device"
+
       
