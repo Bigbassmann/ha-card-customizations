@@ -6,7 +6,7 @@ Displays a formatted summary of all "automation override" switches when they are
 - custom:auto-entities
 
 #### Embedded Cards
-- custom:mushroom-template-card
+- custom:mushroom-template-card  [@piitaya](https://github.com/piitaya)
 
 #### Modifiers
 - card-mod [@thomasloven](https://github.com/thomasloven)
