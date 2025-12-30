@@ -1,0 +1,300 @@
+alert_classes:
+  - problem
+  - battery
+cover_classes: []
+sensor_classes:
+  - unknown
+  - temperature
+  - humidity
+  - motion
+  - door
+  - window
+  - battery
+  - energy
+  - state
+  - input_button
+  - button
+toggle_domains:
+  - lock
+  - switch
+  - light
+  - fan
+  - climate
+  - button
+  - input_button
+  - button
+popup_domains:
+  - sensor
+  - input_button
+  - button
+type: custom:area-card-plus
+area: active_overrides
+columns: 2
+mirrored: false
+hide_unavailable: true
+show_active: true
+customization_domain:
+  - type: input_button
+    popup_card:
+      show_name: true
+      show_icon: true
+      entity: input_button.active_overrides_button
+      name: Active Overrides
+      icon: ""
+      tap_action:
+        action: navigate
+        navigation_path: "#active-overrides"
+      theme: Material You
+      icon_height: 40px
+      show_state: false
+customization_sensor:
+  - type: energy
+    popup_card:
+      type: custom:auto-entities
+      card:
+        type: custom:mushroom-template-card
+        primary: |
+          Active Overrides: {{ states('sensor.active_automation_overrides') }}
+        secondary: >
+          {{ state_attr('sensor.active_automation_overrides', 'category_counts')
+          | default('None active') }}
+
+
+          {{ state_attr('sensor.active_automation_overrides',
+          'category_overrides') | default('None active') }}
+        tertiary: >
+          {% set overrides = state_attr('sensor.active_automation_overrides',
+          'category_overrides') | default('None active') %} {% set counts =
+          state_attr('sensor.active_automation_overrides', 'category_counts') |
+          default('None active') %} {% if overrides != 'None active' %}
+            {% set lines = overrides.split('\n') %}
+            {% set ns = namespace(current_cat='', formatted='') %}
+            {% for line in lines %}
+              {% if line.endswith(':') %}
+                {% set ns.current_cat = line[:-1] %}
+                {% set cat_count = counts.split(ns.current_cat + ':')[1].split(',')[0] | int if ns.current_cat in counts else 0 %}
+                {% set cat_color = 'blue' if cat_count > 0 else 'green' %}
+                {% set ns.formatted = ns.formatted + " | <strong style=\"color: " + cat_color + ";\">" + ns.current_cat + ":</strong>" %}
+              {% elif line.startswith(' - ') %}
+                {% set ns.formatted = ns.formatted + " • " + line[3:] | truncate(40) %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.formatted | truncate(200) }}
+          {% else %}
+            None active
+          {% endif %}
+        icon: mdi:alert-circle-outline
+        icon_color: >
+          {% if states('sensor.active_automation_overrides')|int == 0 %}green{%
+          else %}red{% endif %}
+        multiline_secondary: true
+        entity: sensor.active_automation_overrides
+        tap_action:
+          action: more-info
+      filter:
+        include:
+          - options: {}
+            area: active_overrides
+          - options: {}
+            area: overrides_local
+          - options: {}
+            area: overrides_global
+          - options: {}
+            area: overrides_daniela
+          - options: {}
+            label: overrides
+          - options: {}
+            label: overrides_global
+          - options: {}
+            label: overrides_local
+          - options: {}
+            label: overrides_special
+          - options: {}
+            label: overrides_daniela
+          - options: {}
+            label: overrides_david
+          - options: {}
+            label: overrides_area
+          - options: {}
+            label: overrides_device
+        exclude: []
+      grid_options:
+        columns: 6
+label:
+  - overrides
+  - overrides_local
+  - overrides_global
+  - overrides_device
+  - overrides_special
+  - active_overrides
+  - overrides-daniela
+  - overrides-david
+  - overrides-area
+  - aleepnumber_admin_controls
+  - time_of_day_controls
+popup_sort: state
+layout: vertical
+design: V1
+extra_entities:
+  - sensor.active_automation_overrides
+  - input_button.available_overrides
+customization_alert:
+  - type: problem
+  - type: battery
+customization_cover: []
+icon_css: >
+  {% set compact_cats = state_attr('sensor.compact_automation_overrides',
+  'category_overrides') | default('') %} {% set active_cats =
+  state_attr('sensor.active_automation_overrides', 'category_overrides') |
+  default('') if compact_cats == '' else compact_cats %} {% set total =
+  states('sensor.compact_automation_overrides') | int(0) %} {% set global = 1 if
+  'Global' in active_cats or 'Global:' in active_cats else 0 %} {% set area = 1
+  if 'Area' in active_cats or 'Area:' in active_cats else 0 %} {% set device = 1
+  if 'Device' in active_cats or 'Device:' in active_cats else 0 %} {% if global
+  > 0 %}
+    color: var(--error-color, #FF0000);
+  {% elif area > 0 %}
+    color: var(--warning-color, #FFC107);
+  {% elif device > 0 %}
+    color: var(--info-color, #0288D1);
+  {% else %}
+    color: var(--success-color, #00FF00);
+  {% endif %}
+name_css: >
+  {% set compact_cats = state_attr('sensor.compact_automation_overrides',
+  'category_overrides') | default('') %} {% set active_cats =
+  state_attr('sensor.active_automation_overrides', 'category_overrides') |
+  default('') if compact_cats == '' else compact_cats %} {% set total =
+  states('sensor.compact_automation_overrides') | int(0) %} {% set global = 1 if
+  'Global' in active_cats or 'Global:' in active_cats else 0 %} {% set area = 1
+  if 'Area' in active_cats or 'Area:' in active_cats else 0 %} {% set device = 1
+  if 'Device' in active_cats or 'Device:' in active_cats else 0 %} {% if global
+  > 0 %}
+    color: var(--error-color-light, #FF5555);
+  {% elif area > 0 %}
+    color: var(--warning-color-light, #FFCA28);
+  {% elif device > 0 %}
+    color: var(--info-color-light, #03A9F4);
+  {% else %}
+    color: var(--success-color-light, #55FF55);
+  {% endif %}
+custom_buttons:
+  - icon: carbon:button-centered
+    tap_action:
+      action: navigate
+      navigation_path: "#available-overrides"
+    hold_action:
+      action: none
+    name: Available
+  - name: Active
+    icon: carbon:button-centered
+    tap_action:
+      action: navigate
+      navigation_path: "#active-overrides"
+grid_options:
+  columns: 6
+  rows: 2
+display_type: icon
+show_sensor_icons: false
+area_name: Overrides
+wrap_sensor_icons: false
+card_mod:
+  style: >
+    :host 
+
+      
+    .icon-container {
+      padding-left: 0px;
+      }
+      
+    ha-card {
+      border-radius: px;
+      #margin: px 10px 10px 10px;
+      #box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+
+    ha-icon, ha-state-icon {
+      --mdc-icon-size: 24px !important;
+      width: 25px !important;
+      height: 25px !important;
+    }
+
+    .card-content, .name {
+      font-size: 20px !important;
+      width: 25px !important;
+      height: 22px !important;
+    }
+
+    {% set compact_cats = state_attr('sensor.compact_automation_overrides',
+    'category_overrides') | default('') %}
+
+    {% set active_cats = state_attr('sensor.active_automation_overrides',
+    'category_overrides') | default('') if compact_cats == '' else compact_cats
+    %}
+
+    {% set total = states('sensor.compact_automation_overrides') | int(0) %}
+
+    {% set global = 1 if 'Global' in active_cats or 'Global:' in active_cats
+    else 0 %}
+
+    {% set area = 1 if 'Area' in active_cats or 'Area:' in active_cats else 0 %}
+
+    {% set device = 1 if 'Device' in active_cats or 'Device:' in active_cats
+    else 0 %}
+
+    {% if global > 0 %}
+      ha-icon, ha-state-icon {
+        color: var(--area-global-color, #FF0000) !important;
+      }
+      .name {
+        color: var(--area-global-color-light, #FF5555) !important;
+      }
+      ha-button, .card-action {
+        --mdc-button-label-text-color: var(--area-global-color, #FF0000) !important;
+      }
+      ha-button::after, .card-action::after {
+        content: "Global" !important;
+        color: var(--area-global-color, #FF0000) !important;
+      }
+    {% elif area > 0 %}
+      ha-icon, ha-state-icon {
+        color: var(--area-area-color, #FFC107) !important;
+      }
+      .name {
+        color: var(--area-area-color-light, #FFCA28) !important;
+      }
+      ha-button, .card-action {
+        --mdc-button-label-text-color: var(--area-area-color, #FFC107) !important;
+      }
+      ha-button::after, .card-action::after {
+        content: "Area" !important;
+        color: var(--area-area-color, #FFC107) !important;
+      }
+    {% elif device > 0 %}
+      ha-icon, ha-state-icon {
+        color: var(--area-device-color, #0288D1) !important;
+      }
+      .name {
+        color: var(--area-device-color-light, #03A9F4) !important;
+      }
+      ha-button, .card-action {
+        --mdc-button-label-text-color: var(--area-device-color, #0288D1) !important;
+      }
+      ha-button::after, .card-action::after {
+        content: "Device" !important;
+        color: var(--area-device-color, #0288D1) !important;
+      }
+    {% else %}
+      ha-icon, ha-state-icon {
+        color: var(--area-none-color, #00FF00) !important;
+      }
+      .name {
+        color: var(--area-none-color-light, #55FF55) !important;
+      }
+      ha-button, .card-action {
+        --mdc-button-label-text-color: var(--area-none-color, #00FF00) !important;
+      }
+      ha-button::after, .card-action::after {
+        content: "None" !important;
+        color: var(--area-none-color, #00FF00) !important;
+      }
+    {% endif %}
