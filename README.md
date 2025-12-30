@@ -16,3 +16,4 @@ homeassistant:
     input_boolean.garage_door_automation_off:
       monitored_override: true
       override_category: "Device"
+      
