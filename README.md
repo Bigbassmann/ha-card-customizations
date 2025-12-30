@@ -3,7 +3,7 @@
 Displays a formatted summary of all "automation override" switches when they are active ("ON"). We have Global, Area, Device, and Special (assigned to my wife) override helpers. When having a party, everything is overridden (door lock, lighting, motion, etc.). When one of you wants to sleep in, the other can override just the bedroom motion sensor for you.
 
 #### Main Card
-- custom:auto-entities
+- custom:auto-entities  [@thomasloven](https://github.com/thomasloven)
 
 #### Embedded Cards
 - custom:mushroom-template-card  [@piitaya](https://github.com/piitaya)
